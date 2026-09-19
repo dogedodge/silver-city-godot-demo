@@ -10,8 +10,16 @@
 
 1. Install **[Godot 4.7](https://godotengine.org/download)** (4.7.x; this repo is tagged for 4.7).
 2. Clone this repo, then pull binary assets (see Git LFS below).
-3. In Godot: **Import** / **Open** and select `project.godot`.
-4. Press **F5** (or Run) — main scene is `scenes/main.tscn`.
+3. **Import once** (creates the gitignored `.godot/` cache). Either:
+   - Open the editor: `godot -e --path .` then press **F5**, or
+   - From the CLI (required before `godot --path .` on a fresh clone):
+
+```bash
+godot --headless --path . --import
+godot --path .
+```
+
+`godot --path .` **runs** the main scene (`scenes/main.tscn`); it does not open the editor. Without a prior import, textures fail to load (`*.ctex` missing) and `player.gd` cannot `preload` the walk sheet.
 
 ### Controls
 
@@ -61,8 +69,16 @@ Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, 8-frame walk / idle, SE�
 
 1. 安装 **[Godot 4.7](https://godotengine.org/download)**（4.7.x；本仓库按 4.7 对齐）。
 2. 克隆本仓库，并拉取二进制资源（见下方 Git LFS）。
-3. 在 Godot 中 **导入 / 打开** `project.godot`。
-4. 按 **F5** 运行；主场景为 `scenes/main.tscn`。
+3. **先导入一次**（生成被 gitignore 的 `.godot/` 缓存）。两种方式均可：
+   - 打开编辑器：`godot -e --path .`，再按 **F5**；或
+   - 命令行（新克隆后若直接 `godot --path .`，必须先做这一步）：
+
+```bash
+godot --headless --path . --import
+godot --path .
+```
+
+`godot --path .` 是**直接运行**主场景 `scenes/main.tscn`，不会打开编辑器。若尚未导入，贴图会加载失败（缺少 `*.ctex`），`player.gd` 也无法 `preload` 行走图。
 
 ### 操作
 
