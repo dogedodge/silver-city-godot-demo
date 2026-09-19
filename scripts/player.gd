@@ -1,5 +1,6 @@
 extends CharacterBody2D
 ## 2.5D 城主: 2 walk rows × 8 frames, flip_h for 4 facings (SE / SW / NE / NW).
+## The sheet is drawn facing left (SW / NW); flip_h turns it to face right (SE / NE).
 
 const WALK_SHEET := preload("res://assets/sprites/chengzhu_walk.png")
 const SHEET_COLS := 8
@@ -73,9 +74,9 @@ func _apply_facing(dir: Vector2) -> void:
 	if absf(dir.y) > 0.01:
 		_last_vertical = 1 if dir.y > 0.0 else -1
 	if dir.x < -0.01:
-		sprite.flip_h = true  # SW / NW
+		sprite.flip_h = false  # native left: SW / NW
 	elif dir.x > 0.01:
-		sprite.flip_h = false  # SE / NE
+		sprite.flip_h = true  # flip to right: SE / NE
 	# Pure north/south keeps the last east/west flip.
 
 

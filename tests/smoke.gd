@@ -70,43 +70,43 @@ func _run() -> void:
 	_expect(sprite.animation == "idle_front", "starts idle_front (got '%s')" % sprite.animation)
 	_expect(player.global_position.distance_to(Vector2(2560, 1440)) < 1.0, "spawns at map center")
 
-	# SE: down-right → front, no flip, +x +y
+	# SE: down-right → front, flip (sheet faces left)
 	var origin := player.global_position
 	await _hold_actions(["move_right", "move_down"], PHYSICS_FRAMES)
 	_expect(player.global_position.x > origin.x + 8.0, "SE increases X")
 	_expect(player.global_position.y > origin.y + 4.0, "SE increases Y")
 	_expect(sprite.animation == "walk_front", "SE plays walk_front (got '%s')" % sprite.animation)
 	_expect(sprite.is_playing(), "walk plays while moving")
-	_expect(not sprite.flip_h, "SE does not flip_h")
+	_expect(sprite.flip_h, "SE sets flip_h")
 
 	# Idle after release
 	await _wait_physics(PHYSICS_FRAMES)
 	_expect(sprite.animation == "idle_front", "idle_front after SE stop (got '%s')" % sprite.animation)
 	_expect(player.velocity.length() < 0.1, "velocity ~0 when idle")
 
-	# SW: down-left → front, flip
+	# SW: down-left → front, no flip
 	origin = player.global_position
 	await _hold_actions(["move_left", "move_down"], PHYSICS_FRAMES)
 	_expect(player.global_position.x < origin.x - 8.0, "SW decreases X")
 	_expect(sprite.animation == "walk_front", "SW plays walk_front")
-	_expect(sprite.flip_h, "SW sets flip_h")
+	_expect(not sprite.flip_h, "SW does not flip_h")
 	await _hold_actions([], 2)
 
-	# NE: up-right → back, no flip
+	# NE: up-right → back, flip
 	origin = player.global_position
 	await _hold_actions(["move_right", "move_up"], PHYSICS_FRAMES)
 	_expect(player.global_position.y < origin.y - 4.0, "NE decreases Y")
 	_expect(player.global_position.x > origin.x + 8.0, "NE increases X")
 	_expect(sprite.animation == "walk_back", "NE plays walk_back (got '%s')" % sprite.animation)
-	_expect(not sprite.flip_h, "NE does not flip_h")
+	_expect(sprite.flip_h, "NE sets flip_h")
 	await _hold_actions([], 2)
 
-	# NW: up-left → back, flip
+	# NW: up-left → back, no flip
 	origin = player.global_position
 	await _hold_actions(["move_left", "move_up"], PHYSICS_FRAMES)
 	_expect(player.global_position.x < origin.x - 8.0, "NW decreases X")
 	_expect(sprite.animation == "walk_back", "NW plays walk_back")
-	_expect(sprite.flip_h, "NW sets flip_h")
+	_expect(not sprite.flip_h, "NW does not flip_h")
 	await _hold_actions([], 2)
 
 	# Camera child follows player

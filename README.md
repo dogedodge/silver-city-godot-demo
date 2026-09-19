@@ -32,12 +32,14 @@ Movement is screen-space with a slight Y squash so it reads as a ~45° 2.5D grou
 
 **Facings** (2 sheet rows × `flip_h` = 4 directions):
 
+The walk sheet faces **left**. `flip_h` is used to face right.
+
 | Direction | Sheet | `flip_h` |
 | --- | --- | --- |
-| SE (down-right) | Front row | off |
-| SW (down-left) | Front row | on |
-| NE (up-right) | Back row | off |
-| NW (up-left) | Back row | on |
+| SE (down-right) | Front row | on |
+| SW (down-left) | Front row | off |
+| NE (up-right) | Back row | on |
+| NW (up-left) | Back row | off |
 
 Camera2D follows the player.
 
@@ -91,12 +93,14 @@ godot --path .
 
 **朝向**（sprite sheet 两行 + `flip_h` 得到四个方向）：
 
+行走图朝**左**。朝右时用 `flip_h` 镜像。
+
 | 方向 | Sheet | `flip_h` |
 | --- | --- | --- |
-| 东南 SE（下右） | 正面行 | 关闭 |
-| 西南 SW（下左） | 正面行 | 开启 |
-| 东北 NE（上右） | 背面行 | 关闭 |
-| 西北 NW（上左） | 背面行 | 开启 |
+| 东南 SE（下右） | 正面行 | 开启 |
+| 西南 SW（下左） | 正面行 | 关闭 |
+| 东北 NE（上右） | 背面行 | 开启 |
+| 西北 NW（上左） | 背面行 | 关闭 |
 
 Camera2D 跟随角色。
 
