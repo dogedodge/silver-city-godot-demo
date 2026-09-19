@@ -21,23 +21,23 @@ var _rest_rot: Dictionary = {}  # name -> float
 var _parts: Dictionary = {}
 var _face_left := true
 
-## Character-space joints (hips at origin, Y down, facing −X). Matches tools/paint_xiaolv_parts.py.
-const L := {
+## Fallback joints (hips at origin, Y down, facing −X). Overridden by parts.json layout.
+const L_FALLBACK := {
 	"hips": Vector2(0, 0),
-	"neck": Vector2(0, -74),
-	"crown": Vector2(4, -150),
-	"shoulder": Vector2(-4, -58),
-	"elbow": Vector2(-10, -16),
-	"hand": Vector2(-18, 22),
-	"hip_joint": Vector2(0, 6),
-	"knee": Vector2(-2, 52),
-	"ankle": Vector2(-4, 100),
-	"wing_root": Vector2(18, -52),
-	"wing_tip": Vector2(56, -64),
-	"tail0": Vector2(20, 8),
-	"tail1": Vector2(52, 2),
-	"tail2": Vector2(80, -18),
-	"tail3": Vector2(98, -46),
+	"neck": Vector2(-6, -72),
+	"crown": Vector2(4.5, -199.5),
+	"shoulder": Vector2(-17.4, -45.6),
+	"elbow": Vector2(-27, -20.4),
+	"hand": Vector2(-39.6, 2.4),
+	"hip_joint": Vector2(3, 3),
+	"knee": Vector2(4.5, 65.4),
+	"ankle": Vector2(6, 92.4),
+	"wing_root": Vector2(25.5, -43.5),
+	"wing_tip": Vector2(69, -30),
+	"tail0": Vector2(33, 6.6),
+	"tail1": Vector2(55.5, 32.4),
+	"tail2": Vector2(85.5, 44.4),
+	"tail3": Vector2(105.6, 18.6),
 }
 
 
@@ -107,6 +107,14 @@ func _pivot(name: String) -> Vector2:
 	return Vector2.ZERO
 
 
+func _L(key: String) -> Vector2:
+	if _parts.has("layout") and _parts["layout"] is Dictionary:
+		var raw: Variant = _parts["layout"].get(key, null)
+		if raw is Array and raw.size() >= 2:
+			return Vector2(float(raw[0]), float(raw[1]))
+	return L_FALLBACK[key]
+
+
 func _build_rig() -> void:
 	_facing = Node2D.new()
 	_facing.name = "Facing"
@@ -116,8 +124,24 @@ func _build_rig() -> void:
 	_skeleton.name = "Skeleton2D"
 	_facing.add_child(_skeleton)
 
+	var hips_cs := _L("hips")
+	var neck := _L("neck")
+	var crown := _L("crown")
+	var shoulder := _L("shoulder")
+	var elbow := _L("elbow")
+	var hand := _L("hand")
+	var hip_joint := _L("hip_joint")
+	var knee := _L("knee")
+	var ankle := _L("ankle")
+	var wing_root := _L("wing_root")
+	var wing_tip := _L("wing_tip")
+	var tail0 := _L("tail0")
+	var tail1 := _L("tail1")
+	var tail2 := _L("tail2")
+	var tail3 := _L("tail3")
+
 	# Feet sit on the CharacterBody2D origin (grass). Hips live in character-space (0,0).
-	var foot_y := L.ankle.y + 12.0
+	var foot_y := ankle.y + 12.0
 	var hips := Bone2D.new()
 	hips.name = "Hips"
 	hips.set_autocalculate_length_and_angle(false)
@@ -130,23 +154,23 @@ func _build_rig() -> void:
 	hips.set_meta("cs_origin", Vector2.ZERO)
 	_bones["Hips"] = hips
 
-	_add_bone("Spine", hips, L.hips, L.neck)
-	_add_bone("Head", _bones["Spine"], L.neck, L.crown)
+	_add_bone("Spine", hips, hips_cs, neck)
+	_add_bone("Head", _bones["Spine"], neck, crown)
 
-	_add_bone("ThighFar", hips, L.hip_joint + Vector2(8, 1), L.knee + Vector2(8, 2))
-	_add_bone("ShinFar", _bones["ThighFar"], L.knee + Vector2(8, 2), L.ankle + Vector2(8, 2))
-	_add_bone("ThighNear", hips, L.hip_joint + Vector2(-6, 0), L.knee + Vector2(-6, 0))
-	_add_bone("ShinNear", _bones["ThighNear"], L.knee + Vector2(-6, 0), L.ankle + Vector2(-8, 0))
+	_add_bone("ThighFar", hips, hip_joint + Vector2(8, 1), knee + Vector2(8, 2))
+	_add_bone("ShinFar", _bones["ThighFar"], knee + Vector2(8, 2), ankle + Vector2(8, 2))
+	_add_bone("ThighNear", hips, hip_joint + Vector2(-6, 0), knee + Vector2(-6, 0))
+	_add_bone("ShinNear", _bones["ThighNear"], knee + Vector2(-6, 0), ankle + Vector2(-8, 0))
 
-	_add_bone("ArmFar", _bones["Spine"], L.shoulder + Vector2(10, 2), L.elbow + Vector2(10, 4))
-	_add_bone("ForearmFar", _bones["ArmFar"], L.elbow + Vector2(10, 4), L.hand + Vector2(10, 4))
-	_add_bone("ArmNear", _bones["Spine"], L.shoulder + Vector2(-6, 0), L.elbow + Vector2(-8, 0))
-	_add_bone("ForearmNear", _bones["ArmNear"], L.elbow + Vector2(-8, 0), L.hand + Vector2(-10, 0))
+	_add_bone("ArmFar", _bones["Spine"], shoulder + Vector2(10, 2), elbow + Vector2(10, 4))
+	_add_bone("ForearmFar", _bones["ArmFar"], elbow + Vector2(10, 4), hand + Vector2(10, 4))
+	_add_bone("ArmNear", _bones["Spine"], shoulder + Vector2(-6, 0), elbow + Vector2(-8, 0))
+	_add_bone("ForearmNear", _bones["ArmNear"], elbow + Vector2(-8, 0), hand + Vector2(-10, 0))
 
-	_add_bone("Wing", _bones["Spine"], L.wing_root, L.wing_tip)
-	_add_bone("TailA", hips, L.tail0, L.tail1)
-	_add_bone("TailB", _bones["TailA"], L.tail1, L.tail2)
-	_add_bone("TailC", _bones["TailB"], L.tail2, L.tail3)
+	_add_bone("Wing", _bones["Spine"], wing_root, wing_tip)
+	_add_bone("TailA", hips, tail0, tail1)
+	_add_bone("TailB", _bones["TailA"], tail1, tail2)
+	_add_bone("TailC", _bones["TailB"], tail2, tail3)
 
 	_apply_rest(hips)
 
