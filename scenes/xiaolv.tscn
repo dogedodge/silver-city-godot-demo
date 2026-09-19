@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxiaolvchar0001"]
+
+[ext_resource type="Script" uid="uid://dxiaolvskel2d01" path="res://scripts/xiaolv_skel.gd" id="1_skel"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_feet"]
+radius = 16.0
+
+[node name="Xiaolv" type="CharacterBody2D"]
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_skel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_feet")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = true
+zoom = Vector2(1.35, 1.35)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+limit_left = 0
+limit_top = 0
+limit_right = 5120
+limit_bottom = 2880
+limit_smoothed = true

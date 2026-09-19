@@ -1,0 +1,155 @@
+{
+  "layout": {
+    "hips": [
+      0.0,
+      0.0
+    ],
+    "neck": [
+      0.0,
+      -74.0
+    ],
+    "crown": [
+      4.0,
+      -150.0
+    ],
+    "shoulder": [
+      -4.0,
+      -58.0
+    ],
+    "elbow": [
+      -10.0,
+      -16.0
+    ],
+    "hand": [
+      -18.0,
+      22.0
+    ],
+    "hip_joint": [
+      0.0,
+      6.0
+    ],
+    "knee": [
+      -2.0,
+      52.0
+    ],
+    "ankle": [
+      -4.0,
+      100.0
+    ],
+    "wing_root": [
+      18.0,
+      -52.0
+    ],
+    "wing_tip": [
+      56.0,
+      -64.0
+    ],
+    "tail0": [
+      20.0,
+      8.0
+    ],
+    "tail1": [
+      52.0,
+      2.0
+    ],
+    "tail2": [
+      80.0,
+      -18.0
+    ],
+    "tail3": [
+      98.0,
+      -46.0
+    ]
+  },
+  "head": {
+    "file": "head.png",
+    "pivot": [
+      114.0,
+      78.0
+    ],
+    "width": 143,
+    "height": 150
+  },
+  "torso": {
+    "file": "torso.png",
+    "pivot": [
+      90.0,
+      59.0
+    ],
+    "width": 150,
+    "height": 113
+  },
+  "upper_arm": {
+    "file": "upper_arm.png",
+    "pivot": [
+      56.0,
+      28.0
+    ],
+    "width": 74,
+    "height": 46
+  },
+  "forearm": {
+    "file": "forearm.png",
+    "pivot": [
+      54.0,
+      35.0
+    ],
+    "width": 67,
+    "height": 48
+  },
+  "thigh": {
+    "file": "thigh.png",
+    "pivot": [
+      62.0,
+      21.0
+    ],
+    "width": 80,
+    "height": 39
+  },
+  "shin": {
+    "file": "shin.png",
+    "pivot": [
+      71.0,
+      39.0
+    ],
+    "width": 87,
+    "height": 57
+  },
+  "wing": {
+    "file": "wing.png",
+    "pivot": [
+      13.0,
+      45.0
+    ],
+    "width": 65,
+    "height": 74
+  },
+  "tail_a": {
+    "file": "tail_a.png",
+    "pivot": [
+      15.0,
+      26.0
+    ],
+    "width": 60,
+    "height": 41
+  },
+  "tail_b": {
+    "file": "tail_b.png",
+    "pivot": [
+      14.0,
+      46.0
+    ],
+    "width": 39,
+    "height": 60
+  },
+  "tail_c": {
+    "file": "tail_c.png",
+    "pivot": [
+      28.0,
+      44.0
+    ],
+    "width": 41,
+    "height": 57
+  },
+  "_note": "Pivots are in the bone-oriented PNG (joint on the left, distal +X). Parent Sprite2D to Bone2D with centered=false and position=-pivot."
+}
