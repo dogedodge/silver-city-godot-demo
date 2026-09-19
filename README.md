@@ -8,7 +8,7 @@
 
 ### Open in Godot 4
 
-1. Install **[Godot 4.x](https://godotengine.org/download)** (4.2 or newer).
+1. Install **[Godot 4.7](https://godotengine.org/download)** (4.7.x; this repo is tagged for 4.7).
 2. Clone this repo, then pull binary assets (see Git LFS below).
 3. In Godot: **Import** / **Open** and select `project.godot`.
 4. Press **F5** (or Run) — main scene is `scenes/main.tscn`.
@@ -47,6 +47,7 @@ If sprites or the grass floor are missing / tiny pointer files, you skipped `git
 ### Smoke test
 
 ```bash
+godot --version   # expect 4.7.x
 godot --headless --path . res://tests/smoke.tscn
 ```
 
@@ -58,7 +59,7 @@ Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, 8-frame walk / idle, SE�
 
 ### 用 Godot 4 打开
 
-1. 安装 **[Godot 4.x](https://godotengine.org/download)**（建议 4.2 及以上）。
+1. 安装 **[Godot 4.7](https://godotengine.org/download)**（4.7.x；本仓库按 4.7 对齐）。
 2. 克隆本仓库，并拉取二进制资源（见下方 Git LFS）。
 3. 在 Godot 中 **导入 / 打开** `project.godot`。
 4. 按 **F5** 运行；主场景为 `scenes/main.tscn`。
@@ -97,6 +98,7 @@ git lfs pull
 ### 冒烟测试
 
 ```bash
+godot --version   # 应为 4.7.x
 godot --headless --path . res://tests/smoke.tscn
 ```
 
