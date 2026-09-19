@@ -138,7 +138,7 @@ func _check_assets() -> void:
 	_expect(sheet != null, "walk sheet loads")
 	if sheet != null:
 		_expect(sheet.get_width() == 1280, "walk sheet width is 1280")
-		_expect(sheet.get_height() == 360, "walk sheet height is 360")
+		_expect(sheet.get_height() == 720, "walk sheet height is 720")
 	var grass: Texture2D = load(GRASS)
 	_expect(grass != null, "grass texture loads")
 	if grass != null:
