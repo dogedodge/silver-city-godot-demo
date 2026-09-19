@@ -44,6 +44,14 @@ git lfs pull
 
 If sprites or the grass floor are missing / tiny pointer files, you skipped `git lfs pull`.
 
+### Smoke test
+
+```bash
+godot --headless --path . res://tests/smoke.tscn
+```
+
+Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, 8-frame walk / idle, SE·SW·NE·NW facings, WASD/arrows, camera follow, and map clamp.
+
 ---
 
 ## 中文
@@ -85,3 +93,11 @@ git lfs pull
 ```
 
 若角色图或草地贴图缺失（或只是很小的 pointer 文件），请先执行 `git lfs pull`。
+
+### 冒烟测试
+
+```bash
+godot --headless --path . res://tests/smoke.tscn
+```
+
+成功时打印 `SMOKE TEST PASSED`（退出码 0）。覆盖场景加载、8 帧行走/待机、东南·西南·东北·西北朝向、WASD/方向键、镜头跟随与地图边界。
