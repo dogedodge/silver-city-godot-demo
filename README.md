@@ -62,6 +62,8 @@ Or in the editor: open `scenes/xiaolv_skel_run.tscn` and press **F5** (set it as
 | Left / right | Flip facing (`Facing.scale.x`) |
 | (always) | Skeletal run loop autoplays |
 
+`godot --path . res://tests/dump_xiaolv_strip.tscn` writes an 8-pose run strip to `/tmp/xiaolv_run_strip.png`.
+
 ### Git LFS
 
 PNG (and other binary) assets are stored with **Git LFS**. After clone:
@@ -80,7 +82,7 @@ godot --version   # expect 4.7.x
 godot --headless --path . res://tests/smoke.tscn
 ```
 
-Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, 8-frame walk / idle, SE·SW·NE·NW facings, WASD/arrows, camera follow, and map clamp.
+Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, 8-frame walk / idle, SE·SW·NE·NW facings, WASD/arrows, camera follow, map clamp, and the 小绿 Skeleton2D run (bones, looping `xiaolv/run`, facing flip).
 
 ---
 

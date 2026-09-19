@@ -152,7 +152,7 @@ def rotate_around(im: Image.Image, pivot, angle_deg: float):
 def orient_along_bone(im: Image.Image, pivot, distal):
     dx = float(distal[0] - pivot[0])
     dy = float(distal[1] - pivot[1])
-    angle = -math.degrees(math.atan2(dy, dx))
+    angle = math.degrees(math.atan2(dy, dx))  # PIL CCW; Y-down → distal to the right
     rot, new_pivot = rotate_around(im, pivot, angle)
     return crop_and_pivot(rot, new_pivot, pad=3)
 

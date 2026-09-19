@@ -152,7 +152,7 @@ func _build_rig() -> void:
 
 	var far := Color(0.78, 0.78, 0.84, 1.0)
 	_attach("torso", _bones["Spine"], 0)
-	_attach("head", _bones["Head"], 3)
+	_attach("head", _bones["Head"], 6)
 	_attach("thigh", _bones["ThighFar"], -3, far)
 	_attach("shin", _bones["ShinFar"], -2, far)
 	_attach("thigh", _bones["ThighNear"], 1)
@@ -239,21 +239,21 @@ func _build_run_animation() -> void:
 
 	# Extra rotation (radians added to rest). +clockwise. Legs: − = forward (facing left).
 	# Contact → Down → Passing → Up × 2 (near / far phase offset).
-	var thigh_n := _deg([-50, -24, 16, 52, 46, 20, -14, -54])
-	var thigh_f := _deg([46, 20, -14, -54, -50, -24, 16, 52])
-	var shin_n := _deg([16, 44, 82, 30, 20, 58, 14, 22])
-	var shin_f := _deg([20, 58, 14, 22, 16, 44, 82, 30])
-	var arm_n := _deg([42, 54, -10, -46, -40, -52, 14, 48])
-	var arm_f := _deg([-40, -52, 14, 48, 42, 54, -10, -46])
-	var forearm_n := _deg([18, 24, 8, 16, 14, 22, 10, 18])
-	var forearm_f := _deg([14, 22, 10, 18, 18, 24, 8, 16])
-	var spine := _deg([-8, -14, -6, -10, -8, -14, -6, -10])
-	var head := _deg([4, 8, 2, 6, 4, 8, 2, 6])
+	var thigh_n := _deg([-55, -28, 12, 58, 50, 22, -16, -58])
+	var thigh_f := _deg([50, 22, -16, -58, -55, -28, 12, 58])
+	var shin_n := _deg([12, 36, 58, 22, 16, 42, 10, 18])
+	var shin_f := _deg([16, 42, 10, 18, 12, 36, 58, 22])
+	var arm_n := _deg([38, 48, -8, -40, -36, -46, 12, 42])
+	var arm_f := _deg([-36, -46, 12, 42, 38, 48, -8, -40])
+	var forearm_n := _deg([14, 20, 6, 12, 12, 18, 8, 14])
+	var forearm_f := _deg([12, 18, 8, 14, 14, 20, 6, 12])
+	var spine := _deg([-6, -10, -4, -8, -6, -10, -4, -8])
+	var head := _deg([3, 6, 2, 4, 3, 6, 2, 4])
 	var wing := _deg([-8, 12, 2, -14, -8, 12, 2, -14])
 	var tail_a := _deg([12, 4, -12, -4, 12, 4, -12, -4])
 	var tail_b := _deg([8, -6, -10, 6, 8, -6, -10, 6])
 	var tail_c := _deg([10, -8, -6, 8, 10, -8, -6, 8])
-	var hip_y := [4.0, 9.0, 1.0, -7.0, 4.0, 9.0, 1.0, -7.0]
+	var hip_y := [2.0, 6.0, 0.0, -5.0, 2.0, 6.0, 0.0, -5.0]
 
 	_rot_track(anim, "Hips/Spine", "Spine", spine)
 	_rot_track(anim, "Hips/Spine/Head", "Head", head)
