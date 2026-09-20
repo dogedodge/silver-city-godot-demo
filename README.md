@@ -43,6 +43,27 @@ The walk sheet faces **left**. `flip_h` is used to face right.
 
 Camera2D follows the player.
 
+### 小绿 Skeleton2D run demo
+
+A second scene proves 小绿 (Xiaolv / little green maid) can be animated as a **Godot `Skeleton2D` puppet** (real `Bone2D` bones rotating cutout parts — not `AnimatedSprite2D` / sprite-sheet frames). The 8-key run is Contact → Down → Passing → Up ×2 (near/far legs), looping, facing left (−X).
+
+Body-part PNGs live in `assets/sprites/xiaolv_parts/` (head, torso, arms, legs, wing, tail). They are **cut from the clay three-view side figure** (silver twin bun, maid headdress, mint horns/wings/tail, black dress + scalloped apron) via GrabCut / region masks — not freehand redraws. Regenerate with `python3 tools/cut_xiaolv_parts.py` (source: `tools/refs/xiaolv_side_nendo.png`).
+
+```bash
+godot --headless --path . --import
+godot --path . res://scenes/xiaolv_skel_run.tscn
+```
+
+Or in the editor: open `scenes/xiaolv_skel_run.tscn` and press **F5** (set it as the running scene, or use **F6** to run the current scene). `scenes/main.tscn` is unchanged and still launches the 城主 walk demo.
+
+| Input | Action |
+| --- | --- |
+| **W A S D** or **Arrow keys** | Move on the grass (same 2.5D plane as 城主) |
+| Left / right | Flip facing (`Facing.scale.x`) |
+| (always) | Skeletal run loop autoplays |
+
+`godot --path . res://tests/dump_xiaolv_strip.tscn` writes an 8-pose run strip to `/tmp/xiaolv_run_strip.png`.
+
 ### Git LFS
 
 PNG (and other binary) assets are stored with **Git LFS**. After clone:
@@ -61,7 +82,7 @@ godot --version   # expect 4.7.x
 godot --headless --path . res://tests/smoke.tscn
 ```
 
-Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, 8-frame walk / idle, SE·SW·NE·NW facings, WASD/arrows, camera follow, and map clamp.
+Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, 8-frame walk / idle, SE·SW·NE·NW facings, WASD/arrows, camera follow, map clamp, and the 小绿 Skeleton2D run (bones, looping `xiaolv/run`, facing flip).
 
 ---
 
@@ -122,4 +143,18 @@ godot --version   # 应为 4.7.x
 godot --headless --path . res://tests/smoke.tscn
 ```
 
-成功时打印 `SMOKE TEST PASSED`（退出码 0）。覆盖场景加载、8 帧行走/待机、东南·西南·东北·西北朝向、WASD/方向键、镜头跟随与地图边界。
+成功时打印 `SMOKE TEST PASSED`（退出码 0）。覆盖场景加载、8 帧行走/待机、东南·西南·东北·西北朝向、WASD/方向键、镜头跟随与地图边界，以及小绿 `Skeleton2D` 跑动演示（骨骼、循环动画、朝向翻转）。
+
+---
+
+### 小绿 Skeleton2D 跑动演示
+
+第二个场景用 **Godot `Skeleton2D` 骨骼木偶**（真正的 `Bone2D` 带动部件，而不是 `AnimatedSprite2D` 序列帧）证明小绿可以做侧视跑动。8 个关键姿势：接触 → 下沉 → 交错 → 腾空，左右腿各一轮，循环，默认朝左（−X）。
+
+部件贴图在 `assets/sprites/xiaolv_parts/`，从三视图侧身 **抠图** 得到（不是手绘近似）。重新生成：`python3 tools/cut_xiaolv_parts.py`。用编辑器打开 `scenes/xiaolv_skel_run.tscn` 并按 **F6**，或：
+
+```bash
+godot --path . res://scenes/xiaolv_skel_run.tscn
+```
+
+主场景 `scenes/main.tscn` 未改，仍是城主草地行走。方向键 / WASD 可在草地上移动并左右翻转朝向。
