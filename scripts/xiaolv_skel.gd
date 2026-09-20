@@ -261,16 +261,18 @@ func _build_run_animation() -> void:
 	anim.length = float(POSE_COUNT) / RUN_FPS
 	anim.step = 1.0 / RUN_FPS
 
-	# Extra rotation (radians added to rest). +clockwise. Legs: − = forward (facing left).
+	# Extra rotation added to rest. Godot 2D +rotation is clockwise; from a downward
+	# rest, + swings toward −X = forward when facing left. Opposite arm/leg pairing:
+	# near arm forward when far leg forward.
 	# Contact → Down → Passing → Up × 2 (near / far phase offset).
-	var thigh_n := _deg([-55, -28, 12, 58, 50, 22, -16, -58])
-	var thigh_f := _deg([50, 22, -16, -58, -55, -28, 12, 58])
-	var shin_n := _deg([12, 36, 58, 22, 16, 42, 10, 18])
-	var shin_f := _deg([16, 42, 10, 18, 12, 36, 58, 22])
-	var arm_n := _deg([38, 48, -8, -40, -36, -46, 12, 42])
-	var arm_f := _deg([-36, -46, 12, 42, 38, 48, -8, -40])
-	var forearm_n := _deg([14, 20, 6, 12, 12, 18, 8, 14])
-	var forearm_f := _deg([12, 18, 8, 14, 14, 20, 6, 12])
+	var thigh_n := _deg([55, 28, -12, -58, -50, -22, 16, 58])
+	var thigh_f := _deg([-50, -22, 16, 58, 55, 28, -12, -58])
+	var shin_n := _deg([-12, -36, -58, -22, -16, -42, -10, -18])
+	var shin_f := _deg([-16, -42, -10, -18, -12, -36, -58, -22])
+	var arm_n := _deg([-38, -48, 8, 40, 36, 46, -12, -42])
+	var arm_f := _deg([36, 46, -12, -42, -38, -48, 8, 40])
+	var forearm_n := _deg([-14, -20, -6, -12, -12, -18, -8, -14])
+	var forearm_f := _deg([-12, -18, -8, -14, -14, -20, -6, -12])
 	var spine := _deg([-6, -10, -4, -8, -6, -10, -4, -8])
 	var head := _deg([3, 6, 2, 4, 3, 6, 2, 4])
 	var wing := _deg([-8, 12, 2, -14, -8, 12, 2, -14])
