@@ -14,8 +14,8 @@ func _ready() -> void:
 	for i in POSES:
 		var xiaolv: CharacterBody2D = packed.instantiate()
 		xiaolv.autoplay_run = false
-		xiaolv.position = Vector2(90.0 + float(i) * 150.0, 300.0)
-		xiaolv.scale = Vector2(1.25, 1.25)
+		xiaolv.position = Vector2(80.0 + float(i) * 155.0, 400.0)
+		xiaolv.scale = Vector2(1.05, 1.05)
 		add_child(xiaolv)
 		var cam := xiaolv.get_node_or_null("Camera2D") as Camera2D
 		if cam != null:
@@ -27,7 +27,7 @@ func _ready() -> void:
 		ap.pause()
 
 	var camera := Camera2D.new()
-	camera.position = Vector2(640, 240)
+	camera.position = Vector2(640, 280)
 	camera.enabled = true
 	add_child(camera)
 
