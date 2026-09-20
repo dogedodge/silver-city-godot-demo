@@ -1,0 +1,189 @@
+{
+  "scale": 0.72,
+  "hip_from_feet": 242.0,
+  "walk_hz": 1.35,
+  "idle_hz": 0.35,
+  "rest": {
+    "arm_l": -38.0,
+    "arm_r": 26.0,
+    "elbow_l": -22.0,
+    "elbow_r": -4.0,
+    "thigh_l": 20.0,
+    "thigh_r": -24.0,
+    "calf_l": 8.0,
+    "calf_r": -12.0
+  },
+  "walk": {
+    "thigh_swing": 12.0,
+    "knee_max": 18.0,
+    "arm_swing": 14.0,
+    "hip_sway": 3.5,
+    "hip_bob": 4.0,
+    "hip_x": 2.0,
+    "torso_counter": 2.5,
+    "head_counter": 2.0,
+    "skirt_sway": 6.0
+  },
+  "offsets": {
+    "torso": [
+      1.0,
+      1.0
+    ],
+    "head": [
+      14.0,
+      -148.0
+    ],
+    "skirt": [
+      0.0,
+      -18.0
+    ],
+    "shoulder_l": [
+      42.0,
+      -132.0
+    ],
+    "shoulder_r": [
+      -44.0,
+      -100.0
+    ],
+    "sleeve_l": [
+      -6.0,
+      -2.0
+    ],
+    "sleeve_r": [
+      -10.0,
+      -4.0
+    ],
+    "hip_l": [
+      20.0,
+      16.0
+    ],
+    "hip_r": [
+      -18.0,
+      16.0
+    ]
+  },
+  "joints": {
+    "elbow_l": [
+      14.4,
+      77.5
+    ],
+    "elbow_r": [
+      -23.0,
+      78.8
+    ],
+    "knee_l": [
+      -1.0,
+      111.0
+    ],
+    "knee_r": [
+      -1.0,
+      123.0
+    ]
+  },
+  "parts": {
+    "head": {
+      "file": "res://assets/labrynth/parts/head.png",
+      "pivot": [
+        77.8,
+        151.7
+      ],
+      "z": 50
+    },
+    "torso": {
+      "file": "res://assets/labrynth/parts/torso.png",
+      "pivot": [
+        40.3,
+        172.0
+      ],
+      "z": 40
+    },
+    "skirt": {
+      "file": "res://assets/labrynth/parts/skirt.png",
+      "pivot": [
+        123.0,
+        4.0
+      ],
+      "z": 30
+    },
+    "sleeve_l": {
+      "file": "res://assets/labrynth/parts/sleeve_l.png",
+      "pivot": [
+        46.3,
+        10.5
+      ],
+      "z": 32
+    },
+    "sleeve_r": {
+      "file": "res://assets/labrynth/parts/sleeve_r.png",
+      "pivot": [
+        14.9,
+        10.4
+      ],
+      "z": 46
+    },
+    "upper_arm_l": {
+      "file": "res://assets/labrynth/parts/upper_arm_l.png",
+      "pivot": [
+        21.6,
+        7.5
+      ],
+      "z": 34
+    },
+    "forearm_l": {
+      "file": "res://assets/labrynth/parts/forearm_l.png",
+      "pivot": [
+        28.0,
+        29.0
+      ],
+      "z": 36
+    },
+    "upper_arm_r": {
+      "file": "res://assets/labrynth/parts/upper_arm_r.png",
+      "pivot": [
+        39.0,
+        7.2
+      ],
+      "z": 48
+    },
+    "forearm_r": {
+      "file": "res://assets/labrynth/parts/forearm_r.png",
+      "pivot": [
+        66.0,
+        21.0
+      ],
+      "z": 49
+    },
+    "thigh_l": {
+      "file": "res://assets/labrynth/parts/thigh_l.png",
+      "pivot": [
+        22.0,
+        10.0
+      ],
+      "z": 12
+    },
+    "calf_l": {
+      "file": "res://assets/labrynth/parts/calf_l.png",
+      "pivot": [
+        35.0,
+        27.0
+      ],
+      "z": 14
+    },
+    "thigh_r": {
+      "file": "res://assets/labrynth/parts/thigh_r.png",
+      "pivot": [
+        20.0,
+        12.0
+      ],
+      "z": 16
+    },
+    "calf_r": {
+      "file": "res://assets/labrynth/parts/calf_r.png",
+      "pivot": [
+        27.0,
+        36.0
+      ],
+      "z": 18
+    }
+  }
+}

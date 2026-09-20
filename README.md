@@ -1,6 +1,8 @@
 # 白银城 / Silver City — Godot 4 2.5D Mini Demo
 
-黏土 Q 版城主在草地上行走的迷你演示。A tiny 2.5D walk demo: clay-chibi 城主 on a tiled grass field.
+黏土 Q 版城主在草地上行走的迷你演示。用 **Skeleton2D 部件骨骼**（肘、膝可动）播放走路循环。A tiny 2.5D walk demo: clay-chibi 城主 on a tiled grass field, driven by a cutout **Skeleton2D** (bendable elbows and knees).
+
+![Skeletal walk cycle](assets/labrynth/preview_walk.gif)
 
 ---
 
@@ -19,7 +21,7 @@ godot --headless --path . --import
 godot --path .
 ```
 
-`godot --path .` **runs** the main scene (`scenes/main.tscn`); it does not open the editor. Without a prior import, textures fail to load (`*.ctex` missing) and `player.gd` cannot `preload` the walk sheet.
+`godot --path .` **runs** the main scene (`scenes/main.tscn`); it does not open the editor. Without a prior import, textures fail to load (`*.ctex` missing).
 
 ### Controls
 
@@ -28,20 +30,25 @@ godot --path .
 | **W A S D** or **Arrow keys** | Move |
 | No input | Idle (last facing) |
 
-Movement is screen-space with a slight Y squash so it reads as a ~45° 2.5D ground plane. Walk animation plays while moving; the first sheet frame is used for idle.
+Movement is screen-space with a slight Y squash so it reads as a ~45° 2.5D ground plane. While moving, the puppet plays a looping skeletal walk (hip bob, opposite arm/leg swing, elbow and knee bend, skirt sway). Idle uses a small breath on the same rig.
 
-**Facings** (2 sheet rows × `flip_h` = 4 directions):
+**Facings:** the cutout is a camera-facing 3/4 A-pose. `scale.x` flips for east vs west (native art is unflipped when moving left).
 
-The walk sheet faces **left**. `flip_h` is used to face right.
-
-| Direction | Sheet | `flip_h` |
-| --- | --- | --- |
-| SE (down-right) | Front row | on |
-| SW (down-left) | Front row | off |
-| NE (up-right) | Back row | on |
-| NW (up-left) | Back row | off |
+| Direction | Flip |
+| --- | --- |
+| East (right) | `scale.x < 0` |
+| West (left) | `scale.x > 0` |
 
 Camera2D follows the player.
+
+### Rig
+
+Parts live in `assets/labrynth/parts/` (head, torso, skirt, sleeves, upper/lower arms, thighs/calves). Pivots and rest pose are in `assets/labrynth/rig.json`. `scripts/labrynth_puppet.gd` builds the `Skeleton2D` at runtime:
+
+- **Elbow:** `UpperArmL/R` → `LowerArmL/R`
+- **Knee:** `ThighL/R` → `CalfL/R`
+
+`tools/extract_labrynth_parts.py` recuts `tools/labrynth_src/parts_sheet.png`; `tools/preview_walk.py` renders a GIF preview of the same walk math.
 
 ### Git LFS
 
@@ -61,7 +68,7 @@ godot --version   # expect 4.7.x
 godot --headless --path . res://tests/smoke.tscn
 ```
 
-Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, 8-frame walk / idle, SE·SW·NE·NW facings, WASD/arrows, camera follow, and map clamp.
+Expect `SMOKE TEST PASSED` (exit 0). Covers scene load, Skeleton2D elbow/knee chains, walk vs idle, left/right facing, WASD/arrows, camera follow, and map clamp.
 
 ---
 
@@ -80,7 +87,7 @@ godot --headless --path . --import
 godot --path .
 ```
 
-`godot --path .` 是**直接运行**主场景 `scenes/main.tscn`，不会打开编辑器。若尚未导入，贴图会加载失败（缺少 `*.ctex`），`player.gd` 也无法 `preload` 行走图。
+`godot --path .` 是**直接运行**主场景 `scenes/main.tscn`，不会打开编辑器。若尚未导入，贴图会加载失败（缺少 `*.ctex`）。
 
 ### 操作
 
@@ -89,20 +96,18 @@ godot --path .
 | **W A S D** 或 **方向键** | 移动 |
 | 无输入 | 待机（保持上次朝向） |
 
-移动为屏幕坐标系，并略微压缩 Y 轴，以贴近约 45° 的 2.5D 地面。移动时播放行走动画，停下时使用该朝向的待机帧。
+移动为屏幕坐标系，并略微压缩 Y 轴，以贴近约 45° 的 2.5D 地面。移动时播放骨骼走路循环（身体起伏、四肢反向摆动、肘膝弯曲、裙摆跟随）；停下时同一套骨骼做轻微呼吸。
 
-**朝向**（sprite sheet 两行 + `flip_h` 得到四个方向）：
+**朝向：** 部件图是镜头方向的 3/4 A-pose。朝右时用 `scale.x` 镜像。
 
-行走图朝**左**。朝右时用 `flip_h` 镜像。
+镜头跟随角色。
 
-| 方向 | Sheet | `flip_h` |
-| --- | --- | --- |
-| 东南 SE（下右） | 正面行 | 开启 |
-| 西南 SW（下左） | 正面行 | 关闭 |
-| 东北 NE（上右） | 背面行 | 开启 |
-| 西北 NW（上左） | 背面行 | 关闭 |
+### 骨骼
 
-Camera2D 跟随角色。
+部件在 `assets/labrynth/parts/`。轴心与 A-pose 在 `assets/labrynth/rig.json`。`scripts/labrynth_puppet.gd` 运行时搭建 `Skeleton2D`：
+
+- **肘：** 上臂 → 前臂
+- **膝：** 大腿 → 小腿
 
 ### Git LFS
 
@@ -122,4 +127,4 @@ godot --version   # 应为 4.7.x
 godot --headless --path . res://tests/smoke.tscn
 ```
 
-成功时打印 `SMOKE TEST PASSED`（退出码 0）。覆盖场景加载、8 帧行走/待机、东南·西南·东北·西北朝向、WASD/方向键、镜头跟随与地图边界。
+成功时打印 `SMOKE TEST PASSED`（退出码 0）。覆盖场景加载、肘/膝关节链、行走/待机、左右朝向、WASD/方向键、镜头跟随与地图边界。

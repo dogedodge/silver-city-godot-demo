@@ -14,9 +14,9 @@ config/name="Silver City"
 config/name_localized={
 "zh_CN": "白银城"
 }
-config/description="2.5D mini demo — clay chibi 城主 walk on a grass field"
+config/description="2.5D mini demo — clay chibi 城主 skeletal walk on a grass field"
 config/description_localized={
-"zh_CN": "2.5D 迷你演示：黏土 Q 版城主草地行走"
+"zh_CN": "2.5D 迷你演示：黏土 Q 版城主骨骼走路"
 }
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
