@@ -15,6 +15,9 @@ SRC = ROOT / "tools" / "labrynth_src" / "parts_sheet.png"
 OUT_DIR = ROOT / "assets" / "labrynth" / "parts"
 META = ROOT / "assets" / "labrynth" / "rig_extract.json"
 
+# Redrawn or mirrored after the original sheet; do not overwrite on re-extract.
+SKIP_WRITE = {"torso", "skirt", "upper_arm_l", "forearm_l"}
+
 # Tight boxes that avoid Chinese/English labels under each part.
 REGIONS = {
     "assembled": (52, 58, 252, 472),
@@ -213,7 +216,8 @@ def extract_region(sheet: np.ndarray, name: str, box: tuple[int, int, int, int])
         c["x"] -= tx0
         c["y"] -= ty0
 
-    Image.fromarray(trim, "RGBA").save(OUT_DIR / f"{name}.png")
+    if name not in SKIP_WRITE:
+        Image.fromarray(trim, "RGBA").save(OUT_DIR / f"{name}.png")
     th, tw = trim.shape[:2]
     info = {
         "file": f"parts/{name}.png",

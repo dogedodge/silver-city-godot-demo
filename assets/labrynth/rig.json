@@ -4,9 +4,9 @@
   "walk_hz": 1.35,
   "idle_hz": 0.35,
   "rest": {
-    "arm_l": -58.0,
+    "arm_l": -26.0,
     "arm_r": 18.0,
-    "elbow_l": 6.0,
+    "elbow_l": 4.0,
     "elbow_r": -4.0,
     "thigh_l": 4.0,
     "thigh_r": -4.0,
@@ -30,8 +30,8 @@
       1.0
     ],
     "head": [
-      2.0,
-      -100.0
+      14.0,
+      -148.0
     ],
     "skirt": [
       0.0,
@@ -39,15 +39,15 @@
     ],
     "shoulder_l": [
       48.0,
-      -84.0
+      -120.0
     ],
     "shoulder_r": [
       -44.0,
-      -86.0
+      -100.0
     ],
     "sleeve_l": [
-      10.0,
-      -4.0
+      -6.0,
+      -2.0
     ],
     "sleeve_r": [
       -10.0,
@@ -64,7 +64,7 @@
   },
   "joints": {
     "elbow_l": [
-      -14.4,
+      14.4,
       77.5
     ],
     "elbow_r": [
@@ -92,8 +92,8 @@
     "torso": {
       "file": "res://assets/labrynth/parts/torso.png",
       "pivot": [
-        41.5,
-        91.1
+        40.3,
+        172.0
       ],
       "z": 40
     },
@@ -124,7 +124,7 @@
     "upper_arm_l": {
       "file": "res://assets/labrynth/parts/upper_arm_l.png",
       "pivot": [
-        29.4,
+        21.6,
         7.5
       ],
       "z": 8
@@ -132,7 +132,7 @@
     "forearm_l": {
       "file": "res://assets/labrynth/parts/forearm_l.png",
       "pivot": [
-        68.0,
+        28.0,
         29.0
       ],
       "z": 10
