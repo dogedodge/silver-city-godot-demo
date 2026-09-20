@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bplayerchengzhu"]
+[gd_scene load_steps=4 format=3 uid="uid://bplayerchengzhu"]
 
 [ext_resource type="Script" uid="uid://cu7vki17cgdr7" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://qxogue5f3fxl" path="res://scripts/labrynth_puppet.gd" id="2_puppet"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_feet"]
 radius = 14.0
@@ -10,8 +11,8 @@ y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_player")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
+[node name="Puppet" type="Node2D" parent="."]
+script = ExtResource("2_puppet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_feet")

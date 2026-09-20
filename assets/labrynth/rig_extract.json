@@ -1,0 +1,359 @@
+{
+  "source": "parts_sheet.png",
+  "parts": {
+    "assembled": {
+      "file": "parts/assembled.png",
+      "size": [
+        193,
+        407
+      ],
+      "top": [
+        99.0,
+        29.5
+      ],
+      "bottom": [
+        103.3,
+        372.0
+      ],
+      "magenta": [],
+      "pivot": [
+        96.5,
+        203.5
+      ]
+    },
+    "head": {
+      "file": "parts/head.png",
+      "size": [
+        162,
+        185
+      ],
+      "top": [
+        69.2,
+        12.3
+      ],
+      "bottom": [
+        75.0,
+        170.0
+      ],
+      "magenta": [],
+      "pivot": [
+        77.8,
+        151.7
+      ]
+    },
+    "torso": {
+      "file": "parts/torso.png",
+      "size": [
+        83,
+        99
+      ],
+      "top": [
+        41.6,
+        8.0
+      ],
+      "bottom": [
+        29.8,
+        90.3
+      ],
+      "magenta": [],
+      "pivot": [
+        41.5,
+        91.1
+      ]
+    },
+    "skirt": {
+      "file": "parts/skirt.png",
+      "size": [
+        154,
+        155
+      ],
+      "top": [
+        76.7,
+        9.8
+      ],
+      "bottom": [
+        75.5,
+        143.2
+      ],
+      "magenta": [],
+      "pivot": [
+        76.7,
+        9.8
+      ]
+    },
+    "sleeve_l": {
+      "file": "parts/sleeve_l.png",
+      "size": [
+        63,
+        155
+      ],
+      "top": [
+        46.3,
+        10.5
+      ],
+      "bottom": [
+        25.5,
+        141.8
+      ],
+      "magenta": [],
+      "pivot": [
+        46.3,
+        10.5
+      ]
+    },
+    "sleeve_r": {
+      "file": "parts/sleeve_r.png",
+      "size": [
+        61,
+        156
+      ],
+      "top": [
+        14.9,
+        10.4
+      ],
+      "bottom": [
+        34.6,
+        142.5
+      ],
+      "magenta": [],
+      "pivot": [
+        14.9,
+        10.4
+      ]
+    },
+    "upper_arm_l": {
+      "file": "parts/upper_arm_l.png",
+      "size": [
+        51,
+        100
+      ],
+      "top": [
+        29.4,
+        7.5
+      ],
+      "bottom": [
+        15.1,
+        91.7
+      ],
+      "magenta": [
+        {
+          "x": 15,
+          "y": 85,
+          "n": 11
+        }
+      ],
+      "pivot": [
+        29.4,
+        7.5
+      ],
+      "elbow": [
+        15,
+        85
+      ]
+    },
+    "forearm_l": {
+      "file": "parts/forearm_l.png",
+      "size": [
+        96,
+        116
+      ],
+      "top": [
+        72.1,
+        7.7
+      ],
+      "bottom": [
+        15.8,
+        107.4
+      ],
+      "magenta": [
+        {
+          "x": 68,
+          "y": 29,
+          "n": 32
+        }
+      ],
+      "pivot": [
+        68,
+        29
+      ]
+    },
+    "upper_arm_r": {
+      "file": "parts/upper_arm_r.png",
+      "size": [
+        62,
+        100
+      ],
+      "top": [
+        39.0,
+        7.2
+      ],
+      "bottom": [
+        16.3,
+        92.5
+      ],
+      "magenta": [
+        {
+          "x": 16,
+          "y": 86,
+          "n": 15
+        }
+      ],
+      "pivot": [
+        39.0,
+        7.2
+      ],
+      "elbow": [
+        16,
+        86
+      ]
+    },
+    "forearm_r": {
+      "file": "parts/forearm_r.png",
+      "size": [
+        83,
+        112
+      ],
+      "top": [
+        65.7,
+        7.8
+      ],
+      "bottom": [
+        13.3,
+        103.5
+      ],
+      "magenta": [
+        {
+          "x": 66,
+          "y": 21,
+          "n": 20
+        }
+      ],
+      "pivot": [
+        66,
+        21
+      ]
+    },
+    "thigh_l": {
+      "file": "parts/thigh_l.png",
+      "size": [
+        45,
+        136
+      ],
+      "top": [
+        22.4,
+        9.2
+      ],
+      "bottom": [
+        20.1,
+        125.5
+      ],
+      "magenta": [
+        {
+          "x": 24,
+          "y": 25,
+          "n": 12
+        },
+        {
+          "x": 21,
+          "y": 121,
+          "n": 25
+        }
+      ],
+      "pivot": [
+        24,
+        25
+      ],
+      "knee": [
+        21,
+        121
+      ]
+    },
+    "calf_l": {
+      "file": "parts/calf_l.png",
+      "size": [
+        55,
+        147
+      ],
+      "top": [
+        33.7,
+        10.0
+      ],
+      "bottom": [
+        19.6,
+        135.9
+      ],
+      "magenta": [
+        {
+          "x": 35,
+          "y": 27,
+          "n": 12
+        }
+      ],
+      "pivot": [
+        35,
+        27
+      ]
+    },
+    "thigh_r": {
+      "file": "parts/thigh_r.png",
+      "size": [
+        41,
+        149
+      ],
+      "top": [
+        19.8,
+        9.9
+      ],
+      "bottom": [
+        20.8,
+        138.4
+      ],
+      "magenta": [
+        {
+          "x": 20,
+          "y": 35,
+          "n": 15
+        },
+        {
+          "x": 19,
+          "y": 135,
+          "n": 13
+        }
+      ],
+      "pivot": [
+        20,
+        35
+      ],
+      "knee": [
+        19,
+        135
+      ]
+    },
+    "calf_r": {
+      "file": "parts/calf_r.png",
+      "size": [
+        46,
+        160
+      ],
+      "top": [
+        26.5,
+        11.0
+      ],
+      "bottom": [
+        17.3,
+        148.2
+      ],
+      "magenta": [
+        {
+          "x": 27,
+          "y": 36,
+          "n": 20
+        }
+      ],
+      "pivot": [
+        27,
+        36
+      ]
+    }
+  }
+}

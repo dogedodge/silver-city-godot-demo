@@ -1,10 +1,11 @@
 extends Node
-## Headless smoke test for the 2.5D mini demo.
+## Headless smoke test for the 2.5D skeletal walk demo.
 ## Run: godot --headless --path . res://tests/smoke.tscn
 
 const MAIN_SCENE := "res://scenes/main.tscn"
-const WALK_SHEET := "res://assets/sprites/chengzhu_walk.png"
+const RIG := "res://assets/labrynth/rig.json"
 const GRASS := "res://assets/textures/grass.png"
+const HEAD_TEX := "res://assets/labrynth/parts/head.png"
 const PHYSICS_FRAMES := 20
 
 var _failures: PackedStringArray = []
@@ -40,11 +41,11 @@ func _run() -> void:
 	if player == null:
 		return
 
-	var sprite := player.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+	var puppet := player.get_node_or_null("Puppet") as Node2D
 	var camera := player.get_node_or_null("Camera2D") as Camera2D
-	_expect(sprite != null, "AnimatedSprite2D exists")
+	_expect(puppet != null, "Puppet node exists")
 	_expect(camera != null, "Camera2D exists")
-	if sprite == null or camera == null:
+	if puppet == null or camera == null:
 		return
 
 	_expect(player.motion_mode == CharacterBody2D.MOTION_MODE_FLOATING, "player is MOTION_MODE_FLOATING")
@@ -57,72 +58,97 @@ func _run() -> void:
 		var area: Variant = floor_node.get("area_size")
 		_expect(area == Vector2(5120, 2880), "Floor area_size is 5120x2880")
 
-	var frames: SpriteFrames = sprite.sprite_frames
-	_expect(frames != null, "SpriteFrames built")
-	if frames != null:
-		for anim in ["walk_front", "walk_back", "idle_front", "idle_back"]:
-			_expect(frames.has_animation(anim), "has animation '%s'" % anim)
-		_expect(frames.get_frame_count("walk_front") == 8, "walk_front has 8 frames")
-		_expect(frames.get_frame_count("walk_back") == 8, "walk_back has 8 frames")
-		_expect(frames.get_frame_count("idle_front") == 1, "idle_front has 1 frame")
-		_expect(frames.get_frame_count("idle_back") == 1, "idle_back has 1 frame")
+	var skeleton := puppet.get_node_or_null("Skeleton2D") as Skeleton2D
+	_expect(skeleton != null, "Skeleton2D exists")
+	if skeleton == null:
+		return
 
-	_expect(sprite.animation == "idle_front", "starts idle_front (got '%s')" % sprite.animation)
+	for path in [
+		"Hip",
+		"Hip/Torso",
+		"Hip/Torso/Head",
+		"Hip/Torso/UpperArmL",
+		"Hip/Torso/UpperArmL/LowerArmL",
+		"Hip/Torso/UpperArmR",
+		"Hip/Torso/UpperArmR/LowerArmR",
+		"Hip/ThighL",
+		"Hip/ThighL/CalfL",
+		"Hip/ThighR",
+		"Hip/ThighR/CalfR",
+		"Hip/Skirt",
+	]:
+		var bone := skeleton.get_node_or_null(path)
+		_expect(bone is Bone2D, "bone '%s' is Bone2D" % path)
+
+	_expect(puppet.get("walking") == false, "starts idle (not walking)")
 	_expect(player.global_position.distance_to(Vector2(2560, 1440)) < 1.0, "spawns at map center")
 
-	# SE: down-right → front, flip (sheet faces left)
+	var thigh_l := skeleton.get_node("Hip/ThighL") as Bone2D
+	var calf_l := skeleton.get_node("Hip/ThighL/CalfL") as Bone2D
+	var rest_thigh := thigh_l.rotation_degrees
+	var rest_calf := calf_l.rotation_degrees
+
+	# SE: down-right → walk, flip to face right
 	var origin := player.global_position
+	var phase0: float = float(puppet.get("phase"))
 	await _hold_actions(["move_right", "move_down"], PHYSICS_FRAMES)
 	_expect(player.global_position.x > origin.x + 8.0, "SE increases X")
 	_expect(player.global_position.y > origin.y + 4.0, "SE increases Y")
-	_expect(sprite.animation == "walk_front", "SE plays walk_front (got '%s')" % sprite.animation)
-	_expect(sprite.is_playing(), "walk plays while moving")
-	_expect(sprite.flip_h, "SE sets flip_h")
+	_expect(puppet.get("walking") == true, "SE sets walking")
+	_expect(puppet.get("facing_right") == true, "SE faces right")
+	_expect(puppet.scale.x < 0.0, "SE flips puppet scale.x")
+	_expect(not is_equal_approx(float(puppet.get("phase")), phase0), "walk phase advances")
+
+	# Elbow / knee actually change during the cycle.
+	await _hold_actions(["move_right", "move_down"], 40)
+	var moved_joint := (
+		absf(thigh_l.rotation_degrees - rest_thigh) > 0.5
+		or absf(calf_l.rotation_degrees - rest_calf) > 0.5
+	)
+	_expect(moved_joint, "thigh or knee rotation changes while walking")
 
 	# Idle after release
 	await _wait_physics(PHYSICS_FRAMES)
-	_expect(sprite.animation == "idle_front", "idle_front after SE stop (got '%s')" % sprite.animation)
+	_expect(puppet.get("walking") == false, "idle after SE stop")
 	_expect(player.velocity.length() < 0.1, "velocity ~0 when idle")
 
-	# SW: down-left → front, no flip
+	# SW: down-left → walk, native (no flip)
 	origin = player.global_position
 	await _hold_actions(["move_left", "move_down"], PHYSICS_FRAMES)
 	_expect(player.global_position.x < origin.x - 8.0, "SW decreases X")
-	_expect(sprite.animation == "walk_front", "SW plays walk_front")
-	_expect(not sprite.flip_h, "SW does not flip_h")
+	_expect(puppet.get("walking") == true, "SW sets walking")
+	_expect(puppet.get("facing_right") == false, "SW faces left")
+	_expect(puppet.scale.x > 0.0, "SW does not flip scale.x")
 	await _hold_actions([], 2)
 
-	# NE: up-right → back, flip
+	# NE: up-right → still the skeletal walk, face right
 	origin = player.global_position
 	await _hold_actions(["move_right", "move_up"], PHYSICS_FRAMES)
 	_expect(player.global_position.y < origin.y - 4.0, "NE decreases Y")
 	_expect(player.global_position.x > origin.x + 8.0, "NE increases X")
-	_expect(sprite.animation == "walk_back", "NE plays walk_back (got '%s')" % sprite.animation)
-	_expect(sprite.flip_h, "NE sets flip_h")
+	_expect(puppet.get("walking") == true, "NE sets walking")
+	_expect(puppet.get("facing_right") == true, "NE faces right")
 	await _hold_actions([], 2)
 
-	# NW: up-left → back, no flip
+	# NW: up-left
 	origin = player.global_position
 	await _hold_actions(["move_left", "move_up"], PHYSICS_FRAMES)
 	_expect(player.global_position.x < origin.x - 8.0, "NW decreases X")
-	_expect(sprite.animation == "walk_back", "NW plays walk_back")
-	_expect(not sprite.flip_h, "NW does not flip_h")
+	_expect(puppet.get("walking") == true, "NW sets walking")
+	_expect(puppet.get("facing_right") == false, "NW faces left")
 	await _hold_actions([], 2)
 
-	# Camera child follows player
 	_expect(
 		camera.global_position.distance_to(player.global_position) < 2.0,
 		"Camera2D follows player"
 	)
 
-	# Map clamp: cannot walk past margin
 	player.global_position = Vector2(10, 10)
 	await _hold_actions(["move_left", "move_up"], PHYSICS_FRAMES)
 	_expect(player.global_position.x >= 40.0 - 0.1, "X clamps at map_margin")
 	_expect(player.global_position.y >= 40.0 - 0.1, "Y clamps at map_margin")
 	await _hold_actions([], 1)
 
-	# Physical WASD/arrows via InputEventKey (same path as a real keyboard)
 	player.global_position = Vector2(2560, 1440)
 	await _wait_physics(1)
 	origin = player.global_position
@@ -134,16 +160,21 @@ func _run() -> void:
 
 
 func _check_assets() -> void:
-	var sheet: Texture2D = load(WALK_SHEET)
-	_expect(sheet != null, "walk sheet loads")
-	if sheet != null:
-		_expect(sheet.get_width() == 1280, "walk sheet width is 1280")
-		_expect(sheet.get_height() == 720, "walk sheet height is 720")
+	var rig_text := FileAccess.get_file_as_string(RIG)
+	_expect(not rig_text.is_empty(), "rig.json loads")
 	var grass: Texture2D = load(GRASS)
 	_expect(grass != null, "grass texture loads")
 	if grass != null:
 		_expect(grass.get_width() == 1280, "grass width is 1280")
 		_expect(grass.get_height() == 720, "grass height is 720")
+	var head: Texture2D = load(HEAD_TEX)
+	_expect(head != null, "head part texture loads")
+	for part in [
+		"torso", "skirt", "upper_arm_l", "forearm_l", "upper_arm_r", "forearm_r",
+		"thigh_l", "calf_l", "thigh_r", "calf_r", "sleeve_l", "sleeve_r",
+	]:
+		var tex: Texture2D = load("res://assets/labrynth/parts/%s.png" % part)
+		_expect(tex != null, "part '%s' loads" % part)
 
 
 func _hold_actions(actions: Array, frames: int) -> void:

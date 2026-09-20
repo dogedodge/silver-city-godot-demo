@@ -8,3 +8,7 @@ export_credentials.cfg
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Python helpers
+__pycache__/
+*.pyc
